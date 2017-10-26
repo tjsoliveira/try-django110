@@ -16,6 +16,7 @@ downloads/
 eggs/
 lib/
 lib64/
+migrations/
 parts/
 sdist/
 var/
@@ -58,6 +59,7 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+manage.py
 
 .env
 db.sqlite3
