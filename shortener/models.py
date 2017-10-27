@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 
 from .utils import create_shortcode
+from .validators import validate_url
 
 class KirrUrlManager(models.Manager):
 
@@ -23,7 +24,7 @@ class KirrUrl(models.Model):
 
     # null = True -> Empty in Database is okay
     # blank = True -> Not required in Admin
-    url         = models.CharField(max_length=220)
+    url         = models.CharField(max_length=220, validators=[validate_url])
     shortcode   = models.CharField(max_length=SHORTCODE_MAX, unique = True, blank = True)
     updated     = models.DateTimeField(auto_now=True)
     timestamp   = models.DateTimeField(auto_now_add=True)

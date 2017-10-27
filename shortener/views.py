@@ -16,9 +16,9 @@ class HomeView(View):
         return render(request, 'shortener/home.html', context)
 
     def post(self, request, *args, **kwargs):
-        form = SubmitUrlForm()
-        if form.is_valid():
-            print(form.cleaned_data)
+        form = SubmitUrlForm(request.POST)
+        # if form.is_valid():
+        #     print(form.cleaned_data)
 
         context = {
             'title': 'Submit URL',
