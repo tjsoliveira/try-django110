@@ -20,6 +20,6 @@ from shortener. views import kirr_redirect_view, KirrCBView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^fbv/$', kirr_redirect_view),
-    url(r'^cbv/$', KirrCBView.as_view()),
+    url(r'^fbv/(?P<slug>[\w-]+)/$', kirr_redirect_view),
+    url(r'^cbv/(?P<slug>[\w-]+)/$', KirrCBView.as_view()),
 ]
