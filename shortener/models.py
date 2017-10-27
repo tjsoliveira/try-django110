@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.db import models
+
 from .utils import create_shortcode
-import datetime
 
 class KirrUrlManager(models.Manager):
 
@@ -16,12 +17,14 @@ class KirrUrlManager(models.Manager):
             new_codes += 1
         return "New codes made: {i}".format(i=new_codes)
 
+SHORTCODE_MAX = getattr(settings, 'SHORTCODE_MAX', 15)
+
 class KirrUrl(models.Model):
 
     # null = True -> Empty in Database is okay
     # blank = True -> Not required in Admin
     url         = models.CharField(max_length=220)
-    shortcode   = models.CharField(max_length=15, unique = True, blank = True)
+    shortcode   = models.CharField(max_length=SHORTCODE_MAX, unique = True, blank = True)
     updated     = models.DateTimeField(auto_now=True)
     timestamp   = models.DateTimeField(auto_now_add=True)
     active      = models.BooleanField(default=True)
