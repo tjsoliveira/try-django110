@@ -47,4 +47,4 @@ class KirrUrl(models.Model):
 
     def get_short_url(self):
         url_path = reverse('shortcode', kwargs={'shortcode': self.shortcode})
-        return 'http://www.tirr.com' + url_path
+        return 'http://127.0.0.1:8000' + url_path
