@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from .utils import create_shortcode
 from .validators import validate_url
@@ -43,3 +44,7 @@ class KirrUrl(models.Model):
 
     def __unicode__(self):
         return str(self.url)
+
+    def get_short_url(self):
+        url_path = reverse('shortcode', kwargs={'shortcode': self.shortcode})
+        return 'http://www.tirr.com' + url_path
