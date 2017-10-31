@@ -6,9 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kirr.co | {% block title %} Shorten that url{% endblock title %}</title>
 
-    <!-- Bootstrap -->
-
     <link href="https://getbootstrap.com/docs/3.3/examples/cover/cover.css" rel="stylesheet">
+
+    {% block styles %}
+
+    <style>
+      body {
+        background-color: #226268;
+        /*{% if bg_image %}
+        background-image: url({{ bg_image }});
+        {% endif %}*/
+        background-image: url('https://www.ihdimages.com/wp-content/uploadsktz/2014/10/city_at_night_wallpaper_2014_hd.jpg');
+        background-size: cover;
+      }
+    .btn-link {
+        color: #50dfec;
+        text-shadow: none;
+    }
+    .btn-link:hover {
+        color: #000000;
+    }
+    </style>
+
+    {% endblock styles %}
+
   </head>
 
   <body>
@@ -23,7 +44,7 @@
 
             {% block content %}
             {% endblock content %}
-            
+
           </div>
 
         </div>

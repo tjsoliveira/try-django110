@@ -12,16 +12,15 @@ class HomeView(View):
         form = SubmitUrlForm()
         context = {
             'title': 'Kirr.co',
-            'form': form
+            'form': form,
         }
         return render(request, 'shortener/home.html', context)
 
     def post(self, request, *args, **kwargs):
         form = SubmitUrlForm(request.POST)
-
         context = {
             'title': 'Kirr.co',
-            'form': form
+            'form': form,
         }
 
         template = 'shortener/home.html'
