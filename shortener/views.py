@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.views import View
 
@@ -11,7 +11,7 @@ class HomeView(View):
     def get(self, request, *args, **kwargs):
         form = SubmitUrlForm()
         context = {
-            'title': 'Submit URL',
+            'title': 'Kirr.co',
             'form': form
         }
         return render(request, 'shortener/home.html', context)
@@ -27,27 +27,27 @@ class HomeView(View):
         template = 'shortener/home.html'
 
         if form.is_valid():
+            template = 'shortener/detail.html'
             new_url = form.cleaned_data.get('url')
             obj, created = KirrUrl.objects.get_or_create(url=new_url)
+
+            status = ''
+            if created:
+                status = 'The URL was Created'
+            else:
+                status = 'The URL already Exists'
+
             context = {
                 'object': obj,
                 'created': created,
+                'status': status
             }
-
-            if created:
-                template = 'shortener/success.html'
-            else:
-                template = 'shortener/already-exists.html'
 
         return render(request, template, context)
 
 class URLRedirectView(View):
 
     def get(self, request, shortcode=None, *args, **kwargs):
-        qs = KirrUrl.objects.filter(shortcode__iexact=shortcode)
-        if qs.count != 1 and not qs.exists():
-            raise Http404
-        obj = qs.first()
-        print(ClickEvent.objects.create_event(obj))
-        print(obj.url)
+        obj = get_object_or_404(KirrUrl, shortcode=shortcode)
+        ClickEvent.objects.create_event(obj)
         return HttpResponseRedirect(obj.url)
